@@ -40,7 +40,7 @@
   // Parse RAW CSV file from github
 
 let locations=[];
-  Papa.parse("https://raw.githubusercontent.com/vsigno/GH_WebMap/master/locations.csv", {
+  Papa.parse("https://gitcdn.link/repo/vsigno/GH_WebMap/master/locations.csv", {
 	download: true,
 	complete: function(results) {
 		console.log(results);
