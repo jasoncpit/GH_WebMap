@@ -12,6 +12,10 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
     <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js" integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og==" crossorigin=""></script>
 
+<!-- Just a csv parser -->
+<script src="js/papaparse.min.js"></script>
+
+
 
 
 </head>
@@ -32,7 +36,21 @@
 		id: 'mapbox.streets'
 	}).addTo(mymap);
 
+
+  // Parse local CSV file
+  var file=new File("locations.csv");
+
+  Papa.parse(file, {
+  	complete: function(results) {
+  		console.log("Finished:", results.data);
+
+      console.log(results.data[0]);
+  	}
+  });
+
   var marker = L.marker([51.5, -0.09]).addTo(mymap);
+
+
   marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
 
 </script>
