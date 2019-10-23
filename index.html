@@ -23,7 +23,7 @@
 
 
 
-<div id="mapid" style="width: 600px; height: 400px;"></div>
+<div id="mapid" style="width: 1024px; height: 768px;"></div>
 <script>
 
 	var mymap = L.map('mapid').setView([51.505, -0.09], 13);
@@ -37,21 +37,31 @@
 	}).addTo(mymap);
 
 
-  // Parse local CSV file
-  var file=new File("locations.csv");
+  // Parse RAW CSV file from github
 
-  Papa.parse(file, {
-  	complete: function(results) {
-  		console.log("Finished:", results.data);
+let locations=[];
+  Papa.parse("https://raw.githubusercontent.com/vsigno/GH_WebMap/master/locations.csv", {
+	download: true,
+	complete: function(results) {
+		console.log(results);
 
-      console.log(results.data[0]);
-  	}
-  });
+    results.data.forEach(element => {
+      console.log(element[3]);
 
-  var marker = L.marker([51.5, -0.09]).addTo(mymap);
+      var marker = L.marker([element[0], element[1]]).addTo(mymap);
+    marker.bindPopup("<b>"+element[2]+"</b><br>"+element[3]).openPopup();
+
+    });
+
+	}
+});
 
 
-  marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
+
+
+
+
+
 
 </script>
 
