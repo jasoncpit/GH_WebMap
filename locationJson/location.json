@@ -18,7 +18,7 @@
     
     {
       "properties": {
-        "fid": 0,
+        "fid": 1,
         "place": "AlsoThere"
       },
       "geometry": {
@@ -35,7 +35,7 @@
     {
       
       "properties": {
-        "fid": 0,
+        "fid": 2,
         "place": "StillThere"
       },
       "geometry": {
