@@ -1,0 +1,51 @@
+{
+  "features": [
+    {
+      "properties": {
+        "fid": 0,
+        "place": "There"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.116130,
+          51.511939
+        ]
+      },
+      "name": "AName"
+    },
+    
+    
+    {
+      "properties": {
+        "fid": 0,
+        "place": "AlsoThere"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.117366,
+          51.516553
+        ]
+      },
+      "name": "AnotherName"
+    },
+    
+    
+    {
+      
+      "properties": {
+        "fid": 0,
+        "place": "StillThere"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.117244,
+          51.512126
+        ]
+      },
+      "name": "YepAnotherOne"
+    }
+  ]
+}
