@@ -1,56 +1,56 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Simple Map with some locations</title>
+	<title>Simple (Halloween) Map with some locations</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
-  <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js" integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og==" crossorigin=""></script>
-	
-	<!--jQuery-->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
 
-	<!-- Just a csv parser https://www.papaparse.com/ -->
+<!-- leaflet-->
+	<script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js" integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og==" crossorigin=""></script>
+<!--jQuery-->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- Just a csv parser https://www.papaparse.com/ -->
 	<script src="js/papaparse.min.js"></script>
+
 </head>
 	<body>
-			<div id="mapid" style="width: 1524px; height: 768px;"></div>
+			<div id="mapid" style="width: 1500px; height: 900px;"></div>
 
 <script>
-	var mymap = L.map('mapid').setView([51.505, -0.09], 13);
-this is an error;
-// Other Style here : http://leaflet-extras.github.io/leaflet-providers/preview/index.html
-	L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+	var mymap = L.map('mapid').setView([51.505, -0.09], 13); //Initialise the leaflet map in our div
+
+//this is an error;
+
+// Other Tile Map Style can be found here : http://leaflet-extras.github.io/leaflet-providers/preview/index.html
+	L.tileLayer(
+		'https://tile.thunderforest.com/spinal-map/{z}/{x}/{y}.png?apikey=db40e05369694ca8ac66856aa8d3b1a9', //thunderforest Layer
+		//'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', //CARTO DB Layer
+		{
 		maxZoom: 18,
-		attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+			attribution: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors', //Thunderforest Attribution
+		//attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>', //CARTO attribution
 	}).addTo(mymap);
-	
+
 	var pumpkinIcon = new L.Icon({
   iconUrl: 'img/pumpkin_pl_SHD.png',
-	//shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
   iconSize: [50, 50],
   iconAnchor: [12, 41],
   popupAnchor: [1, -34],
-  shadowSize: [41, 41]
 });
-	
-	
-	// Parse RAW CSV file from github
-	
-  //IF WE USE CSV
-		
-		for(var k=0;k<35;k++) //bad loop, but for the workshop is ok
-		{
-			if("locations/locations"+k+".csv"!="undefined") //just check if the CSV exist
-			{
-		//Online version //Papa.parse("https://gitcdn.link/repo/vsigno/GH_WebMap/master/locations.csv",
-		Papa.parse("locations/locations"+k+".csv",
-		{
-			download: true,
-				complete: function(results) {
-						console.log(results);
 
+  //Add locations using CSV DATA
+
+	for(var k=0;k<35;k++) //bad loop, but for the workshop is ok
+		{
+			if("locations/locations"+k+".csv"!="undefined") // CSV need to be place in the locations folder and named locationsX.csv where X is the number
+			{
+				Papa.parse("locations/locations"+k+".csv",
+				{
+					download: true,
+					complete: function(results) {
+						console.log(results);
     				results.data.forEach(element => {
       						console.log(element[3]);
       						var marker = L.marker([element[0], element[1]],{icon:pumpkinIcon}).addTo(mymap);
@@ -62,15 +62,15 @@ this is an error;
 		}
 	}
 	//END IF WE USE CSV
-	
-	
+
+
 	//IF WE USE JSON
 	/*
 	$.getJSON("locationJson/location.json", function(json_location) {
         console.log(json_location.features.length);
 				json_location.features.forEach(function(placeToMap)
         {
-					var marker = L.marker([placeToMap.geometry.coordinates[1],placeToMap.geometry.coordinates[0]],{opacity:0.5}).addTo(mymap);
+					var marker = L.marker([placeToMap.geometry.coordinates[1],placeToMap.geometry.coordinates[0]],{icon:pumpkinIcon}).addTo(mymap);
 					marker.bindPopup("<b>"+placeToMap.name+"</b><br>"+placeToMap.properties.place).openPopup();
 			})
 		}
