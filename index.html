@@ -46,27 +46,24 @@
 
   //Add locations using CSV DATA
 	for(var k=0;k<35;k++) //bad loop, but for the workshop is ok
-		{
-			if( typeof "./locations/locations"+k+".csv" !=="undefined") // CSV need to be place in the locations folder and named locationsX.csv where X is the number
-			{
+		{// CSV need to be place in the locations folder and named locationsX.csv where X is the number
+				
 				Papa.parse("./locations/locations"+k+".csv",
 				{
 					download: true,
 
 					complete: function(results,file) {
-						if(file !=="undefined"){
-						console.log(results);
+						
     				results.data.forEach(element => {
       						console.log(element[3]);
       						var marker = L.marker([element[0], element[1]],{icon:pumpkinIcon}).addTo(mymap);
     							marker.bindPopup("<b>"+element[2]+"</b><br>"+element[3]
 							+"</b><br>"+element[4]).openPopup();
     				});
-					}
 				}
 			});
-		}
-	}
+}
+
 	//END CSV
 
 
