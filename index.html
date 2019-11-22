@@ -19,13 +19,17 @@
 			<div id="mapid" style="width: 1500px; height: 900px;"></div>
 
 <script>
-	var mymap = L.map('mapid').setView([51.505, -0.09], 13); //Initialise the leaflet map in our div
+	var mymap = L.map('mapid').setView([51.505, -0.09], 7); //Initialise the leaflet map in our div
 
 //this is an error;
 
 // Other Tile Map Style can be found here : http://leaflet-extras.github.io/leaflet-providers/preview/index.html
+//NEVER expose an apikey!!
+//https://help.github.com/en/github/authenticating-to-github/removing-sensitive-data-from-a-repository /Remove a file from history
+//https://gist.github.com/derzorngottes/3b57edc1f996dddcab25 /gitIgnore
 	L.tileLayer(
 		'https://tile.thunderforest.com/spinal-map/{z}/{x}/{y}.png?apikey=db40e05369694ca8ac66856aa8d3b1a9', //thunderforest Layer
+		//'https://tile.thunderforest.com/transport/{z}/{x}/{y}.png?apikey=db40e05369694ca8ac66856aa8d3b1a9', //thunderforest Layer
 		//'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', //CARTO DB Layer
 		{
 		maxZoom: 18,
@@ -61,10 +65,10 @@
 			});
 		}
 	}
-	//END IF WE USE CSV
+	//END CSV
 
 
-	//IF WE USE JSON
+	//Using JSON
 	/*
 	$.getJSON("locationJson/location.json", function(json_location) {
         console.log(json_location.features.length);
