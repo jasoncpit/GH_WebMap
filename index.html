@@ -45,15 +45,16 @@
 });
 
   //Add locations using CSV DATA
-
 	for(var k=0;k<35;k++) //bad loop, but for the workshop is ok
 		{
-			if("locations/locations"+k+".csv"!="undefined") // CSV need to be place in the locations folder and named locationsX.csv where X is the number
+			if( typeof "./locations/locations"+k+".csv" !=="undefined") // CSV need to be place in the locations folder and named locationsX.csv where X is the number
 			{
-				Papa.parse("locations/locations"+k+".csv",
+				Papa.parse("./locations/locations"+k+".csv",
 				{
 					download: true,
-					complete: function(results) {
+
+					complete: function(results,file) {
+						if(file !=="undefined"){
 						console.log(results);
     				results.data.forEach(element => {
       						console.log(element[3]);
@@ -62,6 +63,7 @@
 							+"</b><br>"+element[4]).openPopup();
     				});
 					}
+				}
 			});
 		}
 	}
